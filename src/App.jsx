@@ -91,6 +91,9 @@ export default function App() {
         onClose={closeModal}
         onSave={handleSave}
       />
+      <footer className="demo-footer">
+        ✦ Demo app built by <a href="https://websitesbywillie.com" target="_blank" rel="noopener noreferrer">websitesbywillie.com</a>
+      </footer>
     </div>
   );
 }

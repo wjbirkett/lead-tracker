@@ -551,3 +551,19 @@ body {
   line-height: 1;
 }
 .close-btn:hover { color: var(--text); }
+
+/* ── DEMO FOOTER ── */
+.demo-footer {
+  text-align: center;
+  padding: 0.75rem 1rem;
+  font-size: 0.75rem;
+  color: var(--text3);
+  border-top: 1px solid var(--border);
+  margin-top: auto;
+}
+.demo-footer a {
+  color: var(--cyan);
+  text-decoration: none;
+  font-weight: 600;
+}
+.demo-footer a:hover { text-decoration: underline; }
