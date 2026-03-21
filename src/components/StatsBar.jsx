@@ -1,12 +1,8 @@
 import React from 'react';
 
-function fmtPipeline(v) {
+function fmtMoney(v) {
   if (v >= 1000000) return '$' + (v / 1000000).toFixed(1) + 'M';
-  if (v >= 1000) return '$' + Math.round(v / 1000) + 'k';
-  return '$' + v;
-}
-function fmtMRR(v) {
-  if (v >= 1000) return '$' + Math.round(v / 1000) + 'k';
+  if (v >= 1000) return '$' + (v / 1000).toFixed(1) + 'k';
   return '$' + v;
 }
 
@@ -16,8 +12,9 @@ export default function StatsBar({ leads }) {
   const emailed = leads.filter(l => l.emailed).length;
   const active = leads.filter(l => ['Proposal', 'Qualified'].includes(l.stage)).length;
   const closed = leads.filter(l => l.stage === 'Closed').length;
-  const pipeline = leads.filter(l => l.stage !== 'Lost').reduce((s, l) => s + l.value, 0);
-  const mrr = leads.filter(l => l.stage === 'Closed').reduce((s, l) => s + l.value, 0);
+  const pipeline = leads.filter(l => !['Lost', 'Closed'].includes(l.stage)).reduce((s, l) => s + l.value, 0);
+  const revenue = leads.filter(l => l.stage === 'Closed').reduce((s, l) => s + l.value, 0);
+  const retainers = leads.filter(l => l.stage === 'Closed').length * 50;
 
   const stats = [
     { label: 'Total leads', value: leads.length, cls: 'sv-default' },
@@ -26,8 +23,9 @@ export default function StatsBar({ leads }) {
     { label: 'Emailed', value: emailed, cls: 'sv-default' },
     { label: 'Active (proposal+)', value: active, cls: 'sv-default' },
     { label: 'Closed', value: closed, cls: 'sv-green' },
-    { label: 'Est. pipeline', value: fmtPipeline(pipeline), cls: 'sv-cyan' },
-    { label: 'MRR potential', value: fmtMRR(mrr) + '/mo', cls: 'sv-amber' },
+    { label: 'Pipeline', value: fmtMoney(pipeline), cls: 'sv-cyan' },
+    { label: 'Revenue', value: fmtMoney(revenue), cls: 'sv-amber' },
+    { label: 'Retainers', value: fmtMoney(retainers) + '/mo', cls: 'sv-green' },
   ];
 
   return (
