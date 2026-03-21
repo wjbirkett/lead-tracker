@@ -3,8 +3,8 @@ import { STAGES, NICHES, CITIES, PACKAGES, SOURCES, SCORES } from '../data/leads
 
 const EMPTY = {
   name: '', phone: '', city: 'Fort Myers', niche: 'Auto Repair',
-  stage: 'New', priority: 'High', package: 'Standard', source: 'Legacy',
-  value: 997, score: '2 Low', angle: '', verified: false, emailed: false,
+  stage: 'New', priority: 'High', package: 'Single Page', source: 'Google',
+  value: 400, score: '2 Low', angle: '', verified: false, emailed: false,
 };
 
 export default function Modal({ isOpen, lead, onClose, onSave }) {
@@ -21,7 +21,7 @@ export default function Modal({ isOpen, lead, onClose, onSave }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    onSave({ ...form, value: parseInt(form.value) || 997, verified: form.source === 'Google' });
+    onSave({ ...form, value: parseInt(form.value) || 400, verified: form.source === 'Google' });
   };
 
   return (
@@ -79,7 +79,7 @@ export default function Modal({ isOpen, lead, onClose, onSave }) {
             </div>
             <div className="fg">
               <label>Value ($/mo)</label>
-              <input type="number" value={form.value} onChange={e => set('value', e.target.value)} placeholder="997" />
+              <input type="number" value={form.value} onChange={e => set('value', e.target.value)} placeholder="400" />
             </div>
             <div className="fg">
               <label>Score</label>
